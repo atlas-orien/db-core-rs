@@ -15,7 +15,7 @@ macro_rules! impl_repository {
         }
 
         impl $crate::Repository<$entity, $model> for $struct_name {
-            fn db(&self) -> &sea_orm::DatabaseConnection {
+            fn db(&self) -> &$crate::DbContext {
                 self.base.db()
             }
         }

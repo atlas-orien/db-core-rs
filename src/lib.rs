@@ -7,7 +7,7 @@ pub mod query;
 pub mod repository;
 
 pub use config::DatabaseConfig;
-pub use context::{DbContext, DbTransaction};
+pub use context::DbContext;
 pub use manager::DatabaseManager;
 pub use query::{OrderBy, PaginatedResponse, PaginationParams};
 pub use repository::{Repository, base::BaseRepository};
@@ -28,7 +28,7 @@ mod tests {
         assert_eq!(config.max_connections, 20);
         assert_eq!(config.min_connections, 5);
         assert_eq!(config.connect_timeout, 60);
-        assert_eq!(config.sql_logging, true);
+        assert!(config.sql_logging);
     }
 
     #[test]
@@ -39,6 +39,6 @@ mod tests {
         assert_eq!(config.min_connections, 1);
         assert_eq!(config.connect_timeout, 30);
         assert_eq!(config.idle_timeout, 600);
-        assert_eq!(config.sql_logging, false);
+        assert!(!config.sql_logging);
     }
 }

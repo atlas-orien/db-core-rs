@@ -1,5 +1,3 @@
-use sea_orm::DatabaseConnection;
-
 use crate::DbContext;
 
 /// Base repository implementation
@@ -14,7 +12,7 @@ impl BaseRepository {
     }
 
     /// 仅供 pg-tables 内部使用
-    pub fn db(&self) -> &DatabaseConnection {
-        self.ctx.inner()
+    pub fn db(&self) -> &DbContext {
+        &self.ctx
     }
 }

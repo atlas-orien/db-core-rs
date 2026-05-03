@@ -1,6 +1,6 @@
 [package]
 name = "db-core-rs"
-version = "0.1.3"
+version = "0.1.4"
 edition = "2024"
 description = "SeaORM-based database core utilities and repository abstractions"
 license = "MIT OR Apache-2.0"

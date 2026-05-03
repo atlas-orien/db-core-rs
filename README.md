@@ -38,8 +38,26 @@ async fn main() -> db_core_rs::Result<()> {
 
 - **DatabaseConfig**: Flexible database configuration with builder pattern
 - **DatabaseManager**: Manages multiple named database connections
+- **DbContext**: The only public database context for normal and transactional work
 - **Connection Pooling**: Built-in connection pool management via SeaORM
 - **Error Handling**: Comprehensive error types for database operations
+
+## Transactions
+
+Business code decides when a transaction is needed, but repositories only need
+`DbContext`. The transaction callback receives another `DbContext`, so the same
+service constructors work inside and outside transactions.
+
+```rust
+db.transaction(|tx| {
+    Box::pin(async move {
+        let repo = UserRepository::new(tx.clone());
+        repo.create_user(...).await?;
+        Ok(())
+    })
+})
+.await?;
+```
 
 ## Configuration Options
 

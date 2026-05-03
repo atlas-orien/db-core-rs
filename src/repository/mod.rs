@@ -4,6 +4,7 @@ mod macros;
 use sea_orm::{prelude::*, *};
 
 use crate::{
+    DbContext,
     error::Result,
     query::{OrderBy, PaginatedResponse, PaginationParams, SelectExt},
 };
@@ -15,8 +16,8 @@ where
     E: EntityTrait<Model = M>,
     M: ModelTrait<Entity = E> + FromQueryResult + Send + Sync,
 {
-    /// Get database connection
-    fn db(&self) -> &DatabaseConnection;
+    /// Get database context.
+    fn db(&self) -> &DbContext;
 
     // =================================================
     //  Query

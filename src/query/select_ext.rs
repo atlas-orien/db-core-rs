@@ -1,6 +1,6 @@
 use sea_orm::{
-    ColumnTrait, Condition, DatabaseConnection, EntityTrait, IntoSimpleExpr, QueryFilter,
-    QueryOrder, QuerySelect, Select, Value, prelude::Expr, sea_query::ExprTrait,
+    ColumnTrait, Condition, ConnectionTrait, EntityTrait, IntoSimpleExpr, QueryFilter, QueryOrder,
+    QuerySelect, Select, Value, prelude::Expr, sea_query::ExprTrait,
 };
 
 use super::PaginationParams;
@@ -38,7 +38,9 @@ where
         T: Into<Value>;
 
     /// Get total count (for pagination)
-    async fn total_count(self, db: &DatabaseConnection) -> u64;
+    async fn total_count<C>(self, db: &C) -> u64
+    where
+        C: ConnectionTrait;
 }
 
 #[async_trait::async_trait]
@@ -104,7 +106,10 @@ where
         q
     }
 
-    async fn total_count(self, db: &DatabaseConnection) -> u64 {
+    async fn total_count<C>(self, db: &C) -> u64
+    where
+        C: ConnectionTrait,
+    {
         match self
             .select_only()
             .column_as(Expr::value(1).count(), "count")
