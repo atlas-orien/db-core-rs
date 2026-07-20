@@ -10,7 +10,7 @@ keywords = ["sea-orm", "database", "repository"]
 categories = ["database"]
 
 [dependencies]
-sea-orm = { version = "2.0.0-rc", features = ["sqlx-postgres", "sqlx-mysql", "sqlx-sqlite", "runtime-tokio-rustls", "macros", "with-time"] }
+sea-orm = { version = "2", features = ["sqlx-postgres", "sqlx-mysql", "sqlx-sqlite", "runtime-tokio-rustls", "macros", "with-time"] }
 tokio = { version = "1", features = ["full"] }
 thiserror = "2.0"
 tracing = "0.1.44"
